@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shortest Path Finder – Multi-Algorithm Visual Simulator</title>
+  <meta name="description" content="Interactive visual simulator for BFS, Dijkstra, Bellman-Ford, and Floyd-Warshall shortest path algorithms with step-by-step animation and distance tables.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">⬡ PATHFINDER</div>
+    <div class="subtitle">Multi-Algorithm Visual Simulator</div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+
+    <div class="panel-section">
+      <h3><span class="section-icon">◈</span> Graph Setup</h3>
+      <div class="input-group">
+        <label>From Node</label>
+        <input id="nodeA" placeholder="e.g. A">
+      </div>
+      <div class="input-group">
+        <label>To Node</label>
+        <input id="nodeB" placeholder="e.g. B">
+      </div>
+      <div class="input-group">
+        <label>Weight / Distance</label>
+        <input id="weight" placeholder="e.g. 5" type="number">
+      </div>
+      <button class="btn btn-primary" onclick="addEdge()">+ Add Edge</button>
+      <button class="btn btn-secondary" onclick="loadSampleGraph()">⬡ Load Sample Graph</button>
+    </div>
+
+    <div class="panel-section">
+      <h3><span class="section-icon">◈</span> Algorithm</h3>
+      <div class="algo-grid">
+        <input type="radio" name="algo" id="algoBFS" value="bfs">
+        <label for="algoBFS" class="algo-card">
+          <span class="algo-card-icon">⊞</span>
+          <span class="algo-card-name">BFS</span>
+        </label>
+
+        <input type="radio" name="algo" id="algoDijkstra" value="dijkstra" checked>
+        <label for="algoDijkstra" class="algo-card">
+          <span class="algo-card-icon">◇</span>
+          <span class="algo-card-name">Dijkstra</span>
+        </label>
+
+        <input type="radio" name="algo" id="algoBellmanFord" value="bellmanford">
+        <label for="algoBellmanFord" class="algo-card">
+          <span class="algo-card-icon">↻</span>
+          <span class="algo-card-name">Bellman–Ford</span>
+        </label>
+
+        <input type="radio" name="algo" id="algoFloydWarshall" value="floydwarshall">
+        <label for="algoFloydWarshall" class="algo-card">
+          <span class="algo-card-icon">▦</span>
+          <span class="algo-card-name">Floyd–Warshall</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="panel-section algo-info-section" id="algoInfoSection">
+      <h3><span class="section-icon">◈</span> About Algorithm</h3>
+      <div class="algo-info" id="algoInfo"></div>
+    </div>
+
+    <div class="panel-section">
+      <h3><span class="section-icon">◈</span> Controls</h3>
+      <div class="input-group">
+        <label>Start Node</label>
+        <select id="startNode"></select>
+      </div>
+      <div class="input-group">
+        <label>End Node</label>
+        <select id="endNode"></select>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-accent" onclick="runAnimated()">▶ Run</button>
+        <button class="btn btn-accent" onclick="stepAlgorithm()">⏭ Step</button>
+      </div>
+      <button class="btn btn-danger" onclick="resetGraph()">⟲ Reset</button>
+    </div>
+
+    <div class="legend-row">
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#1c1f2e;border:1.5px solid #3a3f52"></span> Unvisited
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#00d4ff"></span> Visiting
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:rgba(0,212,255,0.25);border:1.5px solid #00d4ff"></span> Visited
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#00ff88"></span> Shortest Path
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── Main Area ── -->
+  <div class="main-area">
+
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="status-bar">
+      <div>
+        <span class="status-dot"></span>
+        <span class="status-text" id="statusText">Idle</span>
+      </div>
+      <div class="status-detail" id="statusDetail"></div>
+    </div>
+
+    <div class="results-panel">
+      <div class="result-header">◈ Results</div>
+      <div id="result"></div>
+      <table id="distanceTable">
+        <tr><th>Node</th><th>Distance from Start</th><th>Reached From</th></tr>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
